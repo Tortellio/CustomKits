@@ -1,0 +1,16 @@
+/Users/Test/Documents/GitHub/CustomKits/bin/Debug/CustomKits.dll
+/Users/Test/Documents/GitHub/CustomKits/bin/Debug/CustomKits.pdb
+/Users/Test/Documents/GitHub/CustomKits/bin/Debug/Assembly-CSharp-firstpass.dll
+/Users/Test/Documents/GitHub/CustomKits/bin/Debug/Assembly-CSharp.dll
+/Users/Test/Documents/GitHub/CustomKits/bin/Debug/Newtonsoft.Json.dll
+/Users/Test/Documents/GitHub/CustomKits/bin/Debug/Rocket.API.dll
+/Users/Test/Documents/GitHub/CustomKits/bin/Debug/Rocket.Core.dll
+/Users/Test/Documents/GitHub/CustomKits/bin/Debug/Rocket.Unturned.dll
+/Users/Test/Documents/GitHub/CustomKits/bin/Debug/UnityEngine.CoreModule.dll
+/Users/Test/Documents/GitHub/CustomKits/bin/Debug/UnityEngine.dll
+/Users/Test/Documents/GitHub/CustomKits/bin/Debug/UnityEngine.PhysicsModule.dll
+/Users/Test/Documents/GitHub/CustomKits/bin/Debug/UnityEngine.Physics2DModule.dll
+/Users/Test/Documents/GitHub/CustomKits/obj/Debug/CustomKits.csprojAssemblyReference.cache
+/Users/Test/Documents/GitHub/CustomKits/obj/Debug/CustomKits.csproj.CopyComplete
+/Users/Test/Documents/GitHub/CustomKits/obj/Debug/CustomKits.dll
+/Users/Test/Documents/GitHub/CustomKits/obj/Debug/CustomKits.pdb

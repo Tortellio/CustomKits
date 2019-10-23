@@ -4,6 +4,7 @@ using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
 using Rocket.API;
 using UnityEngine;
+using Logger = Rocket.Core.Logging.Logger;
 
 namespace Teyhota.CustomKits.Commands
 {
@@ -15,9 +16,9 @@ namespace Teyhota.CustomKits.Commands
 
         public string Help => "Clear somebody's inventory";
 
-        public string Syntax => "[player]";
+        public string Syntax => "/ci [player]";
 
-        public List<string> Aliases => new List<string>() { "ci" };
+        public List<string> Aliases => new List<string> { "ci" };
 
         public List<string> Permissions => new List<string> { "ck.clearinventory" };
 
@@ -30,7 +31,7 @@ namespace Teyhota.CustomKits.Commands
             {
                 if (caller is ConsolePlayer)
                 {
-                    Plugin.CustomKitsPlugin.Write("<player>", ConsoleColor.Red);
+                    Logger.LogError($"Incorrect command usage! Try: {Syntax}");
                     return;
                 }
 
@@ -55,13 +56,13 @@ namespace Teyhota.CustomKits.Commands
                 {
                     if (toPlayer == null)
                     {
-                        Plugin.CustomKitsPlugin.Write(Plugin.CustomKitsPlugin.Instance.Translate("player_doesn't_exist", command[0]), ConsoleColor.Red);
+                        Logger.Log(Plugin.CustomKitsPlugin.Instance.Translate("player_doesn't_exist", command[0]), ConsoleColor.Red);
                         return;
                     }
 
                     InventoryManager.Clear(toPlayer, true);
 
-                    Plugin.CustomKitsPlugin.Write(Plugin.CustomKitsPlugin.Instance.Translate("inventory_cleared_other", toPlayer.CharacterName), ConsoleColor.Cyan);
+                    Logger.Log(Plugin.CustomKitsPlugin.Instance.Translate("inventory_cleared_other", toPlayer.CharacterName), ConsoleColor.Cyan);
                     return;
                 }
 

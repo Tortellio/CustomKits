@@ -4,6 +4,7 @@ using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
 using Rocket.API;
 using UnityEngine;
+using Logger = Rocket.Core.Logging.Logger;
 
 namespace Teyhota.CustomKits.Commands
 {
@@ -32,7 +33,8 @@ namespace Teyhota.CustomKits.Commands
             {
                 if (caller is ConsolePlayer)
                 {
-                    Plugin.CustomKitsPlugin.Write("<player>", ConsoleColor.Red);
+                    //Plugin.CustomKitsPlugin.Write("<player>", ConsoleColor.Red);
+                    Logger.LogError($"Incorrect command usage! Try: {Syntax}");
                     return;
                 }
 
@@ -50,7 +52,7 @@ namespace Teyhota.CustomKits.Commands
 
                     if (caller is ConsolePlayer)
                     {
-                        Plugin.CustomKitsPlugin.Write(Plugin.CustomKitsPlugin.Instance.Translate("max_skills_other", toPlayer.CharacterName), ConsoleColor.Green);
+                        Logger.Log(Plugin.CustomKitsPlugin.Instance.Translate("max_skills_other", toPlayer.CharacterName), ConsoleColor.Green);
                     }
                     else
                     {

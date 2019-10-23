@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Net;
-using System.Xml;
 using System.Collections.Generic;
 using Rocket.API.Collections;
 using Rocket.API;
@@ -23,150 +21,148 @@ namespace Teyhota.CustomKits.Plugin
 {
     public class CustomKitsPlugin : RocketPlugin<CustomKitsConfig>
     {
-        public static string PluginName = "CustomKits";
-        public static string PluginVersion = "1.7.0";
-        public static string BuildVersion = "45";
-        public static string RocketVersion = "4.9.3.0";
-        public static string UnturnedVersion = "3.23.5.0";
+        //public static string PluginName = "CustomKits";
+        //public static string PluginVersion = "1.7.0";
+        //public static string BuildVersion = "45";
+        //public static string RocketVersion = "4.9.3.0";
+        //public static string UnturnedVersion = "3.23.5.0";
         public static string ThisDirectory = System.IO.Directory.GetCurrentDirectory() + @"\Plugins\CustomKits\";
 
         public static CustomKitsPlugin Instance;
         public static bool HasPerms;
         public const string PERMISSION = "ck.preset.";
 
-        public static void Write(string message)
-        {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(message);
-            Console.ResetColor();
-        }
-        public static void Write(string message, ConsoleColor color)
-        {
-            Console.ForegroundColor = color;
-            Console.WriteLine(message);
-            Console.ResetColor();
-        }
-        public void CheckForUpdates(string xmlUrl)
-        {
-            string updateDir = System.IO.Directory.GetCurrentDirectory() + @"\Updates\CustomKits\";
-            string downloadURL = "";
-            string newVersion = "";
-            string newBuild = "";
-            string updateInfo = "";
-            XmlTextReader reader = null;
+        //public static void Write(string message)
+        //{
+        //    Console.ForegroundColor = ConsoleColor.White;
+        //    Console.WriteLine(message);
+        //    Console.ResetColor();
+        //}
+        //public static void Write(string message, ConsoleColor color)
+        //{
+        //    Console.ForegroundColor = color;
+        //    Console.WriteLine(message);
+        //    Console.ResetColor();
+        //}
+        //public void CheckForUpdates(string xmlUrl)
+        //{
+        //    string updateDir = System.IO.Directory.GetCurrentDirectory() + @"\Updates\CustomKits\";
+        //    string downloadURL = "";
+        //    string newVersion = "";
+        //    string newBuild = "";
+        //    string updateInfo = "";
+        //    XmlTextReader reader = null;
 
-            try
-            {
-                reader = new XmlTextReader(xmlUrl);
-                reader.MoveToContent();
-                string elementName = "";
+        //    try
+        //    {
+        //        reader = new XmlTextReader(xmlUrl);
+        //        reader.MoveToContent();
+        //        string elementName = "";
 
-                if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "appinfo"))
-                {
-                    while (reader.Read())
-                    {
-                        if (reader.NodeType == XmlNodeType.Element)
-                        {
-                            elementName = reader.Name;
-                        }
-                        else
-                        {
-                            if ((reader.NodeType == XmlNodeType.Text) && (reader.HasValue))
-                            {
-                                switch (elementName)
-                                {
-                                    case "version":
-                                        newVersion = reader.Value;
-                                        break;
-                                    case "build":
-                                        newBuild = reader.Value;
-                                        break;
-                                    case "url":
-                                        downloadURL = reader.Value;
-                                        break;
-                                    case "about":
-                                        updateInfo = reader.Value;
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                Logger.LogError("Update server down, please try again later\n");
-                return;
-            }
-            finally
-            {
-                if (reader != null)
-                {
-                    reader.Close();
-                }
-            }
+        //        if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "appinfo"))
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                if (reader.NodeType == XmlNodeType.Element)
+        //                {
+        //                    elementName = reader.Name;
+        //                }
+        //                else
+        //                {
+        //                    if ((reader.NodeType == XmlNodeType.Text) && (reader.HasValue))
+        //                    {
+        //                        switch (elementName)
+        //                        {
+        //                            case "version":
+        //                                newVersion = reader.Value;
+        //                                break;
+        //                            case "build":
+        //                                newBuild = reader.Value;
+        //                                break;
+        //                            case "url":
+        //                                downloadURL = reader.Value;
+        //                                break;
+        //                            case "about":
+        //                                updateInfo = reader.Value;
+        //                                break;
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        Logger.LogError("Update server down, please try again later\n");
+        //        return;
+        //    }
+        //    finally
+        //    {
+        //        if (reader != null)
+        //        {
+        //            reader.Close();
+        //        }
+        //    }
             
-            if (newVersion == PluginVersion)
-            {
-                if (newBuild == BuildVersion)
-                {
-                    return;
-                }
-            }
+        //    if (newVersion == PluginVersion)
+        //    {
+        //        if (newBuild == BuildVersion)
+        //        {
+        //            return;
+        //        }
+        //    }
 
-            if (!System.IO.Directory.Exists(updateDir))
-            {
-                System.IO.Directory.CreateDirectory(updateDir);
-            }
+        //    if (!System.IO.Directory.Exists(updateDir))
+        //    {
+        //        System.IO.Directory.CreateDirectory(updateDir);
+        //    }
 
-            if (File.Exists(updateDir + "Update-" + newVersion + ".zip"))
-                return;
+        //    if (File.Exists(updateDir + "Update-" + newVersion + ".zip"))
+        //        return;
 
-            try
-            {
-                new WebClient().DownloadFile(downloadURL, updateDir + "Update-" + newVersion + ".zip");
+        //    try
+        //    {
+        //        new WebClient().DownloadFile(downloadURL, updateDir + "Update-" + newVersion + ".zip");
                 
-                Write(string.Format(updateInfo) + "\n", ConsoleColor.Green);
-            }
-            catch
-            {
-                Logger.LogError("The update has failed to download\n");
-            }
-        }
+        //        Write(string.Format(updateInfo) + "\n", ConsoleColor.Green);
+        //    }
+        //    catch
+        //    {
+        //        Logger.LogError("The update has failed to download\n");
+        //    }
+        //}
         public void PlayerConnected(UnturnedPlayer player)
         {
-            int maxValue = 50;
-
             foreach (CustomKitsConfig.Preset Preset in Configuration.Instance.Presets)
             {
                 if (player.IsAdmin)
-                {
-                    SlotManager.AddSlot(player, maxValue, int.MaxValue);
-                }
+                    SlotManager.AddSlot(player, 50, ushort.MaxValue);
                 else
                 {
                     if (!HasPerms)
-                    {
-                        SlotManager.AddSlot(player, 1, int.MaxValue);
-                    }
-                    else
-                    {
-                        if (player.HasPermission(PERMISSION + "*"))
-                        {
-                            SlotManager.AddSlot(player, maxValue, Preset.ItemLimit);
-                        }
-                        else if (player.HasPermission(PERMISSION + Preset.Name))
-                        {
-                            if (Preset.Name == "*")
-                            {
-                                SlotManager.AddSlot(player, maxValue, Preset.ItemLimit);
-                            }
-                            else
-                            {
-                                SlotManager.AddSlot(player, Preset.SlotCount, Preset.ItemLimit);
-                            }
-                        }
-                    }
+                        SlotManager.AddSlot(player, 1, ushort.MaxValue);
+                    else if(player.HasPermission(PERMISSION + "*") || (player.HasPermission(PERMISSION + Preset.Name) && Preset.Name == "*"))
+                        SlotManager.AddSlot(player, 50, Preset.ItemLimit);
+                    else if(player.HasPermission(PERMISSION + Preset.Name))
+                        SlotManager.AddSlot(player, Preset.SlotCount, Preset.ItemLimit);
+                    //else
+                    //{
+                    //    if (player.HasPermission(PERMISSION + "*"))
+                    //    {
+                    //        SlotManager.AddSlot(player, maxValue, Preset.ItemLimit);
+                    //    }
+                    //    else if (player.HasPermission(PERMISSION + Preset.Name))
+                    //    {
+                    //        if (Preset.Name == "*")
+                    //        {
+                    //            SlotManager.AddSlot(player, maxValue, Preset.ItemLimit);
+                    //        }
+                    //        else
+                    //        {
+                    //            SlotManager.AddSlot(player, Preset.SlotCount, Preset.ItemLimit);
+                    //        }
+                    //    }
+                    //}
                 }
             }
 
@@ -214,15 +210,15 @@ namespace Teyhota.CustomKits.Plugin
             Events.OnKitDeleted += OnKitDeleted;
             Events.OnKitSaved += OnKitSaved;
 
-            Write("\n" + PluginName + " " + PluginVersion, ConsoleColor.Cyan);
-            Write("Made by Teyhota", ConsoleColor.Cyan);
-            Write("for Rocket " + RocketVersion + "\n", ConsoleColor.Cyan);
+            //Write("\n" + PluginName + " " + PluginVersion, ConsoleColor.Cyan);
+            //Write("Made badly by Teyhota", ConsoleColor.Cyan);
+            //Write("for Rocket " + RocketVersion + "\n", ConsoleColor.Cyan);
 
             // update check
-            if (Instance.Configuration.Instance.DisableAutoUpdate != "true")
-            {
-                CheckForUpdates("http://plugins.4unturned.tk/plugins/CustomKits/update.xml");
-            }
+            //if (Instance.Configuration.Instance.DisableAutoUpdate != "true")
+            //{
+            //    CheckForUpdates("http://plugins.4unturned.tk/plugins/CustomKits/update.xml");
+            //}
 
             // dependency check
             if (!File.Exists(System.IO.Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + "Libraries" + Path.DirectorySeparatorChar + "Newtonsoft.Json.dll"))
@@ -247,6 +243,7 @@ namespace Teyhota.CustomKits.Plugin
             }
 
             // load offline kits
+
             if (Instance.Configuration.Instance.KeepKitsOnRestart)
             {
                 if (File.Exists(ThisDirectory + "StoredKits.json"))
@@ -257,13 +254,15 @@ namespace Teyhota.CustomKits.Plugin
                     {
                         KitManager.Kits = new Dictionary<ulong, Dictionary<string, InventoryManager.Inventory>>();
 
-                        Write("No StoredKits.json file to load!\n", ConsoleColor.Yellow);
+                        //Write("No StoredKits.json file to load!\n", ConsoleColor.Yellow);
+                        Logger.Log("No StoredKits.json file to load!\n", ConsoleColor.Yellow);
                     }
                     else
                     {
                         KitManager.Kits = new Dictionary<ulong, Dictionary<string, InventoryManager.Inventory>>(JsonConvert.DeserializeObject<Dictionary<ulong, Dictionary<string, InventoryManager.Inventory>>>(json));
 
-                        Write("Successfully loaded StoredKits.json file!\n", ConsoleColor.Green);
+                        //Write("Successfully loaded StoredKits.json file!\n", ConsoleColor.Green);
+                        Logger.Log("No StoredKits.json file to load!\n", ConsoleColor.Green);
                     }
                 }
                 else
@@ -289,61 +288,61 @@ namespace Teyhota.CustomKits.Plugin
         
         private void OnPluginsLoad()
         {
-            if (Configuration.Instance.KeepKitsOnRestart == true)
+            if (Configuration.Instance.KeepKitsOnRestart && U.Settings.Instance.AutomaticSave.Enabled)
             {
-                if (U.Settings.Instance.AutomaticSave.Enabled == true)
-                {
-                    StartCoroutine(KitManager.AutoStoreKits());
-                }
+                StartCoroutine(KitManager.AutoStoreKits());
             }
         }
 
         private void OnCommandExecuted(IRocketPlayer player, IRocketCommand command, ref bool cancel)
         {
-            if (Configuration.Instance.AntiVehicleSpam)
+            if (!Configuration.Instance.AntiVehicleSpam || player.IsAdmin || player.HasPermission("ck.admin") || player is ConsolePlayer)
+                return;
+
+            if(command.Name.Trim().ToLower() == "v" || command.Name.Trim().ToLower() == "vehicle")
             {
-                if (player.IsAdmin || player.HasPermission("ck.admin") || player is ConsolePlayer)
-                {
-                    // player  is  admin
-                }
-                else
-                {
-                    if (Configuration.Instance.VehicleCommand != null)
-                    {
-                        if (command.Name.Trim().ToLower() == Configuration.Instance.VehicleCommand)
-                        {
-                            StartCoroutine(VehicleManager.LimitVehicles((UnturnedPlayer)player));
-                            cancel = false;
-                        }
-                    }
-                    else
-                    {
-                        if (command.Name.Trim().ToLower() == "v" || command.Name.Trim().ToLower() == "vehicle")
-                        {
-                            StartCoroutine(VehicleManager.LimitVehicles((UnturnedPlayer)player));
-                            cancel = false;
-                        }
-                    }
-                }
+                StartCoroutine(VehicleManager.LimitVehicles((UnturnedPlayer)player));
+                cancel = false;
             }
+
+
+            //if (Configuration.Instance.AntiVehicleSpam)
+            //    {
+            //    if (player.IsAdmin || player.HasPermission("ck.admin") || player is ConsolePlayer)
+            //    {
+            //        // player  is  admin
+            //    }
+            //    else
+            //    {
+            //        if (Configuration.Instance.VehicleCommand != null)
+            //        {
+            //            if (command.Name.Trim().ToLower() == Configuration.Instance.VehicleCommand)
+            //            {
+            //                StartCoroutine(VehicleManager.LimitVehicles((UnturnedPlayer)player));
+            //                cancel = false;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            if (command.Name.Trim().ToLower() == "v" || command.Name.Trim().ToLower() == "vehicle")
+            //            {
+            //                StartCoroutine(VehicleManager.LimitVehicles((UnturnedPlayer)player));
+            //                cancel = false;
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private void OnItemRemoved(UnturnedPlayer player, InventoryGroup inventoryGroup, byte inventoryIndex, ItemJar P)
         {
-            if (LevelManager.levelType == ELevelType.ARENA && player.Player.movement.isSafe)
-            {
-                var safeZoneInfo = player.Player.movement.isSafeInfo;
-
-                if (safeZoneInfo.noWeapons && safeZoneInfo.noBuildables) // aka the Lobby
-                {
-                    ItemManager.askClearRegionItems(player.Player.movement.region_x, player.Player.movement.region_y);
-                }
-            }
+            if (LevelManager.levelType == ELevelType.ARENA && player.Player.movement.isSafe && player.Player.movement.isSafeInfo.noWeapons && player.Player.movement.isSafeInfo.noBuildables)
+                ItemManager.askClearRegionItems(player.Player.movement.region_x, player.Player.movement.region_y);
         }
 
         private void OnKitSaved(UnturnedPlayer player, UnturnedPlayer toPlayer, string kitName)
         {
-            if (Configuration.Instance.KeepKitsOnRestart == true)
+            if (Configuration.Instance.KeepKitsOnRestart)
             {
                 KitManager.TryStoreKits();
             }
@@ -351,7 +350,7 @@ namespace Teyhota.CustomKits.Plugin
 
         private void OnKitDeleted(UnturnedPlayer player, string kitName)
         {
-            if (Configuration.Instance.KeepKitsOnRestart == true)
+            if (Configuration.Instance.KeepKitsOnRestart)
             {
                 KitManager.TryStoreKits();
             }
@@ -458,7 +457,7 @@ namespace Teyhota.CustomKits.Plugin
             Events.OnKitDeleted -= OnKitDeleted;
             Events.OnKitSaved -= OnKitSaved;
 
-            Write("Visit Plugins.4Unturned.tk for more!", ConsoleColor.Green);
+            //Write("Visit Plugins.4Unturned.tk for more!", ConsoleColor.Green);
         }
 
         public override TranslationList DefaultTranslations

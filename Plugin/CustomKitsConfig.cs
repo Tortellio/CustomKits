@@ -6,10 +6,10 @@ namespace Teyhota.CustomKits.Plugin
 {
     public class CustomKitsConfig : IRocketPluginConfiguration
     {
-        public static CustomKitsConfig Instance;
+        //public static CustomKitsConfig Instance;
         
-        public string DisableAutoUpdate;
-        public string VehicleCommand;
+        //public string DisableAutoUpdate;
+        //public string VehicleCommand;
         public string DefaultKitName;
         public bool KeepKitsOnRestart;
         public bool KeepKitsOnDeath;
@@ -25,7 +25,7 @@ namespace Teyhota.CustomKits.Plugin
         {
             public Preset() { }
 
-            internal Preset(string name, int maxKits, int itemLimit, string blackList)
+            internal Preset(string name, int maxKits, ushort itemLimit, string blackList)
             {
                 Name = name;
                 SlotCount = maxKits;
@@ -38,14 +38,14 @@ namespace Teyhota.CustomKits.Plugin
             [XmlAttribute]
             public int SlotCount;
             [XmlAttribute]
-            public int ItemLimit;
+            public ushort ItemLimit;
             [XmlAttribute]
             public string Blacklist;
         }
         
         public void LoadDefaults()
         {
-            Instance = this;
+            //Instance = this;
             
             DefaultKitName = "Default"; // or "preset_name"
             KeepKitsOnRestart = true;

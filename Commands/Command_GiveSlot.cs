@@ -3,6 +3,7 @@ using Rocket.Unturned.Player;
 using Rocket.Unturned.Chat;
 using Rocket.API;
 using UnityEngine;
+using Logger = Rocket.Core.Logging.Logger;
 
 namespace Teyhota.CustomKits.Commands
 {
@@ -14,11 +15,11 @@ namespace Teyhota.CustomKits.Commands
 
         public string Help => "Manually give players more slots to save their kits";
 
-        public string Syntax => "<player> <amount> <item limit>";
+        public string Syntax => "/giveslot <player> <amount> <item limit>";
 
-        public List<string> Aliases => new List<string>() { };
+        public List<string> Aliases => new List<string> { "gs" };
 
-        public List<string> Permissions => new List<string> { "ck.giveslot" };
+        public List<string> Permissions => new List<string> { "ck.giveslot", "rocket.giveslot"};
 
 
         public void Execute(IRocketPlayer caller, string[] command)
@@ -27,19 +28,17 @@ namespace Teyhota.CustomKits.Commands
             {
                 if (caller is ConsolePlayer)
                 {
-                    Plugin.CustomKitsPlugin.Write(Syntax, System.ConsoleColor.Red);
+                    //Plugin.CustomKitsPlugin.Write(Syntax, System.ConsoleColor.Red);
+                    Logger.LogError($"Incorrect command usage! Try: {Syntax}");
                     return;
                 }
-                else
-                {
-                    UnturnedChat.Say(caller, Syntax, Color.red);
-                    return;
-                }
+                UnturnedChat.Say(caller, Syntax, Color.red);
+                return;
             }
 
-            var player = UnturnedPlayer.FromName(command[0]);
-            int amount = int.Parse(command[1]);
-            int limit = int.Parse(command[2]);
+            UnturnedPlayer player = UnturnedPlayer.FromName(command[0]);
+            ushort amount = ushort.Parse(command[1]);
+            ushort limit = ushort.Parse(command[2]);
 
             if (player != null)
             {
@@ -47,7 +46,7 @@ namespace Teyhota.CustomKits.Commands
 
                 if (caller is ConsolePlayer)
                 {
-                    Plugin.CustomKitsPlugin.Write(Plugin.CustomKitsPlugin.Instance.Translate("gave_slot", player.DisplayName, amount, limit), System.ConsoleColor.Green);
+                    Logger.Log(Plugin.CustomKitsPlugin.Instance.Translate("gave_slot", player.DisplayName, amount, limit), System.ConsoleColor.Green);
                 }
                 else
                 {
@@ -60,7 +59,7 @@ namespace Teyhota.CustomKits.Commands
             {
                 if (caller is ConsolePlayer)
                 {
-                    Plugin.CustomKitsPlugin.Write(Plugin.CustomKitsPlugin.Instance.Translate("player_doesn't_exist", player.CharacterName), System.ConsoleColor.Red);
+                    Logger.Log(Plugin.CustomKitsPlugin.Instance.Translate("player_doesn't_exist", player.CharacterName), System.ConsoleColor.Red);
                 }
                 else
                 {

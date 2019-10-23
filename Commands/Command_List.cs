@@ -5,6 +5,7 @@ using Rocket.API;
 using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
 using UnityEngine;
+using Logger = Rocket.Core.Logging.Logger;
 
 namespace Teyhota.CustomKits.Commands
 {
@@ -16,7 +17,7 @@ namespace Teyhota.CustomKits.Commands
 
         public string Help => "List saved kits";
 
-        public string Syntax => "[player]";
+        public string Syntax => "/list [player]";
 
         public List<string> Aliases => new List<string>() { "listkits" };
 
@@ -33,7 +34,7 @@ namespace Teyhota.CustomKits.Commands
             {
                 if (caller is ConsolePlayer)
                 {
-                    Plugin.CustomKitsPlugin.Write("<player>", ConsoleColor.Red);
+                    Logger.LogError("<player>");
                     return;
                 }
 
@@ -56,7 +57,7 @@ namespace Teyhota.CustomKits.Commands
             {
                 if (caller is ConsolePlayer)
                 {
-                    Plugin.CustomKitsPlugin.Write(Plugin.CustomKitsPlugin.Instance.Translate("player_doesn't_exist", command[0]), ConsoleColor.Red);
+                    Logger.Log(Plugin.CustomKitsPlugin.Instance.Translate("player_doesn't_exist", command[0]), ConsoleColor.Red);
                     return;
                 }
 
@@ -72,7 +73,7 @@ namespace Teyhota.CustomKits.Commands
 
                     if (caller is ConsolePlayer)
                     {
-                        Plugin.CustomKitsPlugin.Write(Plugin.CustomKitsPlugin.Instance.Translate("kit_list", kitList), ConsoleColor.Green);
+                        Logger.Log(Plugin.CustomKitsPlugin.Instance.Translate("kit_list", kitList), ConsoleColor.Green);
                         return;
                     }
 
@@ -84,7 +85,7 @@ namespace Teyhota.CustomKits.Commands
                     {
                         if (caller is ConsolePlayer)
                         {
-                            Plugin.CustomKitsPlugin.Write(Plugin.CustomKitsPlugin.Instance.Translate("kit_list", kit), ConsoleColor.Green);
+                            Logger.Log(Plugin.CustomKitsPlugin.Instance.Translate("kit_list", kit), ConsoleColor.Green);
                             return;
                         }
 
@@ -95,7 +96,7 @@ namespace Teyhota.CustomKits.Commands
                 {
                     if (caller is ConsolePlayer)
                     {
-                        Plugin.CustomKitsPlugin.Write(Plugin.CustomKitsPlugin.Instance.Translate("no_saved_kits"), ConsoleColor.Red);
+                        Logger.Log(Plugin.CustomKitsPlugin.Instance.Translate("no_saved_kits"), ConsoleColor.Red);
                         return;
                     }
 
@@ -106,7 +107,7 @@ namespace Teyhota.CustomKits.Commands
             {
                 if (caller is ConsolePlayer)
                 {
-                    Plugin.CustomKitsPlugin.Write(Plugin.CustomKitsPlugin.Instance.Translate("no_saved_kits"), ConsoleColor.Red);
+                    Logger.Log(Plugin.CustomKitsPlugin.Instance.Translate("no_saved_kits"), ConsoleColor.Red);
                     return;
                 }
 
