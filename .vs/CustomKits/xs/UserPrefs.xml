@@ -1,0 +1,33 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Commands/Command_List.cs">
+    <Files>
+      <File FileName="CustomKits.cs" Line="18" Column="10" />
+      <File FileName="Plugin/CustomKitsPlugin.cs" />
+      <File FileName="Plugin/CustomKitsConfig.cs" />
+      <File FileName="InventoryManager.cs" />
+      <File FileName="KitManager.cs" />
+      <File FileName="Commands/Command_GiveSlot.cs" />
+      <File FileName="Commands/Command_Maxskills.cs" />
+      <File FileName="Commands/Command_ClearInventory.cs" />
+      <File FileName="Commands/Command_List.cs" Line="110" Column="31" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="CustomKits" expanded="True">
+            <Node name="CustomKits" expanded="True" selected="True">
+              <Node name="Commands" expanded="True" />
+              <Node name="Plugin" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
